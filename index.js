@@ -4,10 +4,12 @@ require('./src/yaml')
 const discord = require('discord.js');
 const logger = require('logger.js').LoggerFactory.getLogger('main', 'green')
 //const antispam = require('discord-anti-spam');
+const dispatcher = require('bot-framework/dispatcher')
 const client = new discord.Client();
 const fs = require("fs");
 const prefix = "\\";
 const config = require('./config.yml')
+let cache = null
 
 let messagesu = JSON.parse(fs.readFileSync("./messagesu.json", "utf8"));
 let SNickname = JSON.parse(fs.readFileSync("./SNickname.json", "utf8"));
@@ -15,18 +17,17 @@ let banmessagesu = JSON.parse(fs.readFileSync("./banmessagesu.json", "utf8"));
 let GCcommands = 0;
 
 client.on('ready', message => {
-  logger.info('bot is ready!');
-  logger.info("   Server Name | Server ID | MemberCount")
-  logger.info(client.guilds.map(guild => ` - ${guild.name} | ${guild.id} | ${guild.memberCount}人`).join('\n'))
+  client.user.setActivity(`${prefix}help | ${client.guilds.size} servers`)
+  cache = client.guilds.size
+  logger.info('Bot is ready!')
+    .info("   Server Name | Server ID | MemberCount")
+    .info(client.guilds.map(guild => ` - ${guild.name} | ${guild.id} | ${guild.memberCount}人`).join('\n'))
 });
 
-client.on('error', error => {
-  logger.error(error.stack || error);
-})
-
+client.on('error', error => logger.error(error.stack || error))
 
 client.on('message', message => {
-  if(message.author.bot) return;
+  if (message.author.bot || message.system) return;
 
   let args = message.content.trim().split(/\s{1,}/g);
   let command = args.shift();
@@ -34,26 +35,15 @@ client.on('message', message => {
   let cmd = AmessageArray[0];
   let agre = AmessageArray.slice(1)
 
+  if (cache !== client.guilds.size) client.user.setActivity(`${prefix}help | ${client.guilds.size} servers`)
 
-  client.user.setPresence({
-    status: "online",
-    game: {
-      name: prefix + "help | " + client.guilds.size + "server",
-      type: "PLAYING"
-    }
-  })
+  if (message.content.startsWith(prefix) && message.content.includes('version') || message.content.includes('eval') || message.content.includes('help') || message.content.includes('ping')) {
+    dispatcher(message, require('./lang/ja.json'), prefix, config.owners)
+  }
 
   let gotiser = client.guilds.get('514362788425236480').memberCount;
   let gotizatuer = client.guilds.get('514362788425236480');
   let Gonmember = gotiser - gotizatuer.members.filter(m => m.presence.status === 'offline').size;
-
-  if(message.content === `${prefix}ping`) {
-    message.channel.send(`:loading: | Ping を確認しています...`).then(msg => {
-      msg.edit(
-        `API: ${Math.round(client.ping)} ms\nLatency: ${msg.createdTimestamp - message.createdTimestamp} ms`
-      )
-    });
-  }
 
   if(!SNickname[message.guild.id]) SNickname[message.guild.id] = {
     on1: 0,

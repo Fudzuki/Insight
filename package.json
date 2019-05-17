@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "bot-framework": "acrylic-style/bot-framework",
     "discord.js": "^11.4.2",
     "logger.js": "acrylic-style/logger.js",
     "yaml": "^1.5.1"
