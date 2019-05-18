@@ -29,11 +29,12 @@ module.exports = class extends Command {
       const BMC = banmessagecount[msg.channel.id]
       if(BMC.banmessage == 0){
         BMC.banmessage = 1
-        msg.channel.send(`${msg.channel}をメッセージカウント無効にしました`)
-      }else{
+        sendDeletable(`${msg.channel}をメッセージカウント無効にしました`)
+      } else {
         BMC.banmessage = 0
-        msg.channel.send(`${msg.channel}をメッセージカウント有効にしました`)
+        sendDeletable(`${msg.channel}をメッセージカウント有効にしました`)
       }
+      await fs.writeFile('../banmessagecount.json', JSON.stringify(banmessagecount)).catch(e => logger.error(`Error while writing to file: ${e}`))
     }
   }
 }

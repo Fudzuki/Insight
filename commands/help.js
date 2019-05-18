@@ -34,8 +34,11 @@ module.exports = class extends Command {
       .addField('help', lang['commands']['help'])
       .addField('eval', lang['commands']['eval'])
       .addField('version', lang['commands']['version'])
+      .addField('nick', lang['commands']['nick'])
+      .addField('ping', lang['commands']['ping'])
+      .addField('manage', lang['commands']['manage'])
+      .addField('mname', lang['commands']['mname'])
       .addField('Note!', `\`${prefix}help [Command]\`で詳細な情報を表示します！`)
-      .addField('Note!', '現在裏で再作成中！')
       .setColor([0,255,0])
     sendDeletable(embed)
   }
