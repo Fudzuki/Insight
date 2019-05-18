@@ -4,7 +4,7 @@ const git = require('simple-git/promise')
 
 module.exports = class extends Command {
   constructor() {
-    super('version')
+    super('version', { permission: 8 })
   }
 
   async run(msg, lang, args, sendDeletable) {
