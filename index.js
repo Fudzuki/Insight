@@ -37,8 +37,9 @@ client.on('message', message => {
 
   if (cache !== client.guilds.size) client.user.setActivity(`${prefix}help | ${client.guilds.size} servers`)
 
-  if (message.content.startsWith(prefix) && message.content.includes('version') || message.content.includes('eval') || message.content.includes('help') || message.content.includes('ping')) {
-    dispatcher(message, require('./lang/ja.json'), prefix, config.owners, prefix)
+  const commands = ['version', 'ping', 'help', 'eval']
+  if (message.content.startsWith(prefix) && commands.some(c => message.content.includes(c))) {
+    return dispatcher(message, require('./lang/ja.json'), prefix, config.owners, prefix)
   }
 
   let gotiser = client.guilds.get('514362788425236480').memberCount;
