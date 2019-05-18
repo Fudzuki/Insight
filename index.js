@@ -10,8 +10,8 @@ const prefix = '\\'
 const config = require('./config.yml')
 const cache = { guilds: 0, messagecount: null }
 
-const messagecount = JSON.parse(fs.readFileSync('./messagecount.json', 'utf8'))
-const banmessagecount = JSON.parse(fs.readFileSync('./banmessagecount.json', 'utf8'))
+const messagecount = require('./messagecount.json')
+const banmessagecount = require('./banmessagecount.json')
 
 client.on('ready', () => {
   client.user.setActivity(`${prefix}help | ${client.guilds.size} servers`)
