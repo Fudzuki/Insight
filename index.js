@@ -50,13 +50,15 @@ client.on('message', async message => {
   */
 
   const msgcountCollection = new discord.Collection(messagecount)
-  const result = msgcountCollection.find(m => m.guildid == message.guild.id)
-  if (!client.channels.has(result.channelid)) {
-    result.guildid = 0
-  } else {
-    result.messagecount++
-    client.channels.get(result.channelid).setName(`${result.messagename}: ${result.messagecount}`)
-  }
+  const result = msgcountCollection.findAll(m => m.guildid == message.guild.id)
+  result.forEach(r => {
+    if (!client.channels.has(r.channelid)) {
+      r.guildid = 0
+    } else {
+      r.messagecount++
+      client.channels.get(r.channelid).setName(`${r.messagename}: ${r.messagecount}`)
+    }
+  })
 
   await fs.writeFile('./messagecount.json', JSON.stringify(msgcountCollection.array())).catch(e => logger.error(`Error while writing to file: ${e}`))
 })
