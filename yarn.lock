@@ -28,8 +28,9 @@ async-limiter@~1.0.0:
 
 bot-framework@acrylic-style/bot-framework:
   version "1.0.0"
-  resolved "https://codeload.github.com/acrylic-style/bot-framework/tar.gz/085adf19745414908fbcd96e7ab12ef88da26a06"
+  resolved "https://codeload.github.com/acrylic-style/bot-framework/tar.gz/7a41d8e07ee931d66b761adb5802ceeb678ee65d"
   dependencies:
+    bot-framework acrylic-style/bot-framework
     discord.js "^11.4.2"
     emojilib "^2.4.0"
     minimist "^1.2.0"
