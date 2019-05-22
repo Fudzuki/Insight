@@ -5,10 +5,14 @@ const discord = require('discord.js')
 const logger = require('logger.js').LoggerFactory.getLogger('main', 'green')
 const dispatcher = require('bot-framework/dispatcher')
 const client = new discord.Client()
-const fs = require('fs').promises
+const _fs = require('fs')
+const fs = _fs.promises
 const prefix = '\\'
 const config = require('./config.yml')
 const cache = { guilds: 0, messagecount: null }
+
+if (!_fs.existsSync('./messagecount.json')) _fs.writeFileSync('./messagecount.json', '[]')
+if (!_fs.existsSync('./banmessagecount.json')) _fs.writeFileSync('./banmessagecount.json', '[]')
 
 const messagecount = require('./messagecount.json')
 const banmessagecount = require('./banmessagecount.json')
