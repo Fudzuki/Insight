@@ -1,5 +1,5 @@
 **/node_modules/
 config.yml
 **/logs/
-messagecount.json
-banmessagecount.json
+**/messagecount.json
+**/banmessagecount.json
