@@ -33,8 +33,7 @@ client.on('message', async message => {
   cache['messagecount'] = messagecount
   if (message.guild.me.nickname !== null) message.guild.me.setNickname(`${message.guild.memberCount}人`)
   if (!banmessagecount[message.channel.id]) banmessagecount[message.channel.id] = { banmessage: 0 }
-  //const BCM = banmessagecount[message.channel.id]
-  /*
+  const BCM = banmessagecount[message.channel.id]
   const result = messagecount.filter(m => BCM.banmessage === 0 && m.guildid === message.guild.id)
   if (result.length) result.messagecount++
 
@@ -47,20 +46,8 @@ client.on('message', async message => {
       }
     }
   }
-  */
 
-  const msgcountCollection = new discord.Collection(messagecount)
-  const result = msgcountCollection.findAll(m => m.guildid == message.guild.id)
-  result.forEach(r => {
-    if (!client.channels.has(r.channelid)) {
-      r.guildid = 0
-    } else {
-      r.messagecount++
-      client.channels.get(r.channelid).setName(`${r.messagename}: ${r.messagecount}`)
-    }
-  })
-
-  await fs.writeFile('./messagecount.json', JSON.stringify(msgcountCollection.array())).catch(e => logger.error(`Error while writing to file: ${e}`))
+  await fs.writeFile('./messagecount.json', JSON.stringify(messagecount)).catch(e => logger.error(`Error while writing to file: ${e}`))
 })
 
 logger.info('Logging in...')
