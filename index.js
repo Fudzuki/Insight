@@ -37,21 +37,22 @@ client.on('message', async message => {
 
   if (message.content.startsWith(prefix)) dispatcher(message, require('./lang/ja.json'), prefix, config.owners, prefix)
 
-  if (!message.guild) return
-  cache['messagecount'] = messagecount
-  if (message.guild.me.nickname !== null) message.guild.me.setNickname(`${message.guild.memberCount}人`)
-  if (cache.beta) return
-  if (!banmessagecount[message.channel.id]) banmessagecount[message.channel.id] = { banmessage: 0 }
-  const BCM = banmessagecount[message.channel.id]
-  const result = messagecount.filter(m => BCM.banmessage === 0 && m.guildid === message.guild.id)
-  if (result.length) result.messagecount++
+  //if (!message.guild) return
+  //cache['messagecount'] = messagecount
+  //if (message.guild.me.nickname !== null) message.guild.me.setNickname(`${message.guild.memberCount}人`)
+  //if (cache.beta) return
+  //if (!banmessagecount[message.channel.id]) banmessagecount[message.channel.id] = { banmessage: 0 }
+  //const BCM = banmessagecount[message.channel.id]
+  //const result = messagecount.filter(m => BCM.banmessage === 0 && m.guildid === message.guild.id)
+  //if (result.length) result.messagecount++
 
-  for(const abc in messagecount){
-    if(!client.channels.has(messagecount[abc].channelid)){
-      messagecount[abc].guildid = 0
+  for(const abc of messagecount){
+    if(!client.channels.has(abc.channelid)){
+      abc.guildid = 0
     } else {
-      if(messagecount[abc].guildid == message.guild.id){
-        client.channels.get(messagecount[abc].channelid).setName(`${messagecount[abc].messagename}: ${messagecount[abc].messagecount}`)
+      if(abc.guildid == message.guild.id){
+        abc.messagecount++;
+        client.channels.get(abc.channelid).setName(`${abc.messagename}: ${abc.messagecount}`)
       }
     }
   }
