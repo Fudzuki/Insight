@@ -16,7 +16,7 @@ if (!_fs.existsSync('./messagecount.json')) _fs.writeFileSync('./messagecount.js
 if (!_fs.existsSync('./banmessagecount.json')) _fs.writeFileSync('./banmessagecount.json', '[]')
 
 const messagecount = require('./messagecount.json')
-const banmessagecount = require('./banmessagecount.json')
+const bm = require('./banmessagecount.json')
 
 client.on('ready', async () => {
   client.user.setActivity(`${prefix}help | ${client.guilds.size} servers`)
@@ -45,14 +45,20 @@ client.on('message', async message => {
   //const BCM = banmessagecount[message.channel.id]
   //const result = messagecount.filter(m => BCM.banmessage === 0 && m.guildid === message.guild.id)
   //if (result.length) result.messagecount++
+ 
+  if(!bm[message.channel.id]) bm[message.channel.id] = {
+    banmessage: 0
+  }
 
   for(const abc of messagecount){
     if(!client.channels.has(abc.channelid)){
       abc.guildid = 0
     } else {
       if(abc.guildid == message.guild.id){
-        abc.messagecount++;
-        client.channels.get(abc.channelid).setName(`${abc.messagename}: ${abc.messagecount}`)
+        if(bm[message.channel.id].banmessage == 0){
+          abc.messagecount++;
+          client.channels.get(abc.channelid).setName(`${abc.messagename}: ${abc.messagecount}`);
+        }
       }
     }
   }
