@@ -12,7 +12,6 @@ const cache = { guilds: 0, messagecount: null }
 
 if (!_fs.existsSync('./messagecount.json')) _fs.writeFileSync('./messagecount.json', '[]')
 if (!_fs.existsSync('./banmessagecount.json')) _fs.writeFileSync('./banmessagecount.json', '[]')
-//if (!_fs.existsSync('./usercount.json')) _fs.writeFileSync('./usercount.json', '[]') unused
 
 const messagecount = require('./messagecount.json')
 const bm = require('./banmessagecount.json')
