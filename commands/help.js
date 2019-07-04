@@ -32,6 +32,7 @@ module.exports = class extends Command {
     const embed = new Discord.RichEmbed()
       .setTitle('List of commands')
       .addField('help', lang['commands']['help'])
+      .addField('invite', lang['commands'][invite])
       .addField('version', lang['commands']['version'])
       .addField('nick', lang['commands']['nick'])
       .addField('ping', lang['commands']['ping'])
