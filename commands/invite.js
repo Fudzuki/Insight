@@ -6,6 +6,6 @@ module.exports = class extends Command {
   }
 
   async run(msg) {
-    msg.channel.send(`https://discordapp.com/oauth2/authorize?client_id=${msg.client.user.id}&permissions=8&scope=bot`)
+    msg.channel.send(`<https://discordapp.com/oauth2/authorize?client_id=${msg.client.user.id}&permissions=8&scope=bot>`)
   }
 }
