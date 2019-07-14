@@ -34,7 +34,7 @@ module.exports = class extends Command {
       .addField('help', lang['commands']['help'])
       .addField('invite', lang['commands'][invite])
       .addField('version', lang['commands']['version'])
-      .addField('nick', lang['commands']['nick'])
+      .addField('support', lang['commands']['support'])
       .addField('ping', lang['commands']['ping'])
       .addField('manage', lang['commands']['manage'])
       .addField('mname', lang['commands']['mname'])
