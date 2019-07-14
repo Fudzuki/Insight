@@ -32,35 +32,14 @@ client.on('message', async message => {
   if (cache['guilds'] !== client.guilds.size) client.user.setActivity(`${prefix}help | ${client.guilds.size} servers`)
 
   if (message.content.startsWith(prefix)) dispatcher(message, require('./lang/ja.json'), prefix, config.owners, prefix)
-
-  //if (!message.guild) return
-  //cache['messagecount'] = messagecount
-  //if (message.guild.me.nickname !== null) message.guild.me.setNickname(`${message.guild.memberCount}人`)
-  // if (!banmessagecount[message.channel.id]) banmessagecount[message.channel.id] = { banmessage: 0 }
-  // const BCM = banmessagecount[message.channel.id]
-  //const result = messagecount.filter(m => BCM.banmessage === 0 && m.guildid === message.guild.id)
-  //if (result.length) result.messagecount++
   if(!bm[message.channel.id]) bm[message.channel.id] = { banmessage: 0 }
-  /*
-  for(const u of umc){
-    if(u.uid !== message.author.id && u.gid !== message.guild.id){
-      umc.push({
-        gid: message.guild.id,
-        uid: message.author.id,
-        UserCounts: 0,
-      })
-    }
-  }*/// because umc is unused
-
-  for(const abc in messagecount){
-    if(!client.channels.has(messagecount[abc].channelid)) {
-      messagecount[abc].guildid = 0
-    } else {
-      if(messagecount[abc].guildid == message.guild.id && bm[message.channel.id].banmessage == 0){
-        messagecount[abc].messagecount++
-        client.channels.get(messagecount[abc].channelid).setName(`${messagecount[abc].messagename}: ${messagecount[abc].messagecount}`)
-      }
-    }
+  
+  const result = messagecount.filter(m => m.guildid === message.guild.id && client.channels.has(m.channelid));                                                                      
+  if(result && bm[message.channel.id].banmessage === 0){                                                   
+    result.map(function(counts){                                                                            
+      counts.messagecount++;                                                                                
+      message.guild.channels.get(counts.channelid).setName(`${counts.messagename}: ${counts.messagecount}`) 
+    });                                                                                                     
   }
 
   await fs.writeFile('./messagecount.json', JSON.stringify(messagecount)).catch(e => logger.error(`Error while writing to file: ${e}`))
