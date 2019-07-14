@@ -1,7 +1,8 @@
 {
   "commands": {
     "help": "コマンドの情報を表示します。",
-    "invite": "Insight+の招待URLを表示します",
+    "invite": "Insight+の招待リンクを表示します",
+    "support": "Insight+のサポートサーバーの招待リンクを表示します",
     "eval": "スクリプトを実行します。",
     "version": "バージョン情報を表示します。",
     "nick": "ニックネームを設定します。詳細なヘルプ(help nick)を参照してください。",
