@@ -35,8 +35,8 @@ client.on('message', async message => {
   if(!bm[message.channel.id]) bm[message.channel.id] = { banmessage: 0 }
   
   const result = messagecount.filter(m => m.guildid === message.guild.id && client.channels.has(m.channelid));                                                                      
-  if(result && bm[message.channel.id].banmessage === 0){                                                   
-    result.forEach(function(counts){                                                                            
+  if(result.size && bm[message.channel.id].banmessage === 0){                                                   
+    result.forEach(counts => {                                                                            
       counts.messagecount++;                                                                                
       message.guild.channels.get(counts.channelid).setName(`${counts.messagename}: ${counts.messagecount}`) 
     });                                                                                                     
