@@ -15,7 +15,6 @@ if (!_fs.existsSync('./banmessagecount.json')) _fs.writeFileSync('./banmessageco
 
 const messagecount = require('./messagecount.json')
 const bm = require('./banmessagecount.json')
-//const umc = require('./usercount.json') unused
 
 client.on('ready', () => {
   client.user.setActivity(`${prefix}help | ${client.guilds.size} servers`)
